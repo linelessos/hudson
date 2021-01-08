@@ -1,4 +1,4 @@
-linelessos/android_build#!/usr/bin/env bash
+#!/usr/bin/env bash
 
 function check_result {
   if [ "0" -ne "$?" ]
@@ -175,10 +175,10 @@ then
   IS_HTTP=$(echo $GERRIT_TOPICS | grep http)
   if [ -z "$IS_HTTP" ]
   then
-    python $WORKSPACE/vendor/lineage/build/tools/repopick.py -t $GERRIT_TOPICS
+    python $WORKSPACE/$JENKINS_BUILD_DIR/vendor/lineage/build/tools/repopick.py -t $GERRIT_TOPICS
     check_result "gerrit picks failed."
   else
-    python $WORKSPACE/vendor/lineage/build/tools/repopick.py -t $(curl $GERRIT_TOPICS)
+    python $WORKSPACE/$JENKINS_BUILD_DIR/vendor/lineage/build/tools/repopick.py -t $(curl $GERRIT_TOPICS)
     check_result "gerrit picks failed."
   fi
 fi
@@ -188,10 +188,10 @@ then
   IS_HTTP=$(echo $GERRIT_CHANGES | grep http)
   if [ -z "$IS_HTTP" ]
   then
-    python $WORKSPACE/vendor/lineage/build/tools/repopick.py $GERRIT_CHANGES
+    python $WORKSPACE/$JENKINS_BUILD_DIR/vendor/lineage/build/tools/repopick.py $GERRIT_CHANGES
     check_result "gerrit picks failed."
   else
-    python $WORKSPACE/vendor/lineage/build/tools/repopick.py $(curl $GERRIT_CHANGES)
+    python $WORKSPACE/$JENKINS_BUILD_DIR/vendor/lineage/build/tools/repopick.py $(curl $GERRIT_CHANGES)
     check_result "gerrit picks failed."
   fi
 fi
@@ -207,13 +207,8 @@ then
   echo "============================================"
 fi
 
-if [ $TIME_SINCE_LAST_CLEAN -gt "24" -o $CLEAN = "true" ]
-then
-  echo "Cleaning!"
-  make clobber
-else
-  echo "Skipping clean: $TIME_SINCE_LAST_CLEAN hours since last clean."
-fi
+echo "Cleaning!"
+make clobber
 
 echo "copying opengapps" 
 mv /home/build/opengapps/vendor/opengapps $WORKSPACE/$JENKINS_BUILD_DIR/vendor/
