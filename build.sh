@@ -214,7 +214,7 @@ echo "copying opengapps"
 mv /home/build/opengapps/vendor/opengapps $WORKSPACE/$JENKINS_BUILD_DIR/vendor/
 mv $WORKSPACE/$JENKINS_BUILD_DIR/vendor/opengapps/build/modules/Turbo/Android.mk $WORKSPACE/$JENKINS_BUILD_DIR/vendor/opengapps/build/modules/Turbo/Android.mok
 
-time mka $MAKE_BLOB
+time $MAKE_BLOB $DEVICE
 check_result "Build failed."
 
 echo "remove opengapps" 
