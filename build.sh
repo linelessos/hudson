@@ -20,8 +20,6 @@ function check_result {
   fi
 }
 
-export LUNCH=$DEVICE-$BUILDTYPE
-
 if [ -z "$HOME" ]
 then
   echo HOME not in environment, guessing...
@@ -37,12 +35,6 @@ fi
 if [ -z "$REPO_BRANCH" ]
 then
   echo REPO_BRANCH not specified
-  exit 1
-fi
-
-if [ -z "$LUNCH" ]
-then
-  echo LUNCH not specified
   exit 1
 fi
 
@@ -152,7 +144,7 @@ export OUT_DIR=/mnt/build/jenkins/lineless
 rm -rf $OUT_DIR_COMMON_BASE
 mkdir -p $OUT_DIR_COMMON_BASE
 . build/envsetup.sh
-lunch $LUNCH
+breakfast $DEVICE
 check_result "lunch failed."
 
 rm -f $OUT/*.zip*
@@ -160,10 +152,6 @@ rm -f $OUT/*.zip*
 UNAME=$(uname)
 
 echo "Start building for $BUILD_USER_ID"
-
-source build/envsetup.sh
-lunch $LUNCH
-check_result "lunch failed."
 
 if [ ! -z "$GERRIT_CHANGE_NUMBER" ]
 then
