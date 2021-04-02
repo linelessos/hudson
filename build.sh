@@ -141,8 +141,8 @@ else
 fi
 
 export OUT_DIR=/mnt/build/jenkins/lineless
-rm -rf $OUT_DIR_COMMON_BASE
-mkdir -p $OUT_DIR_COMMON_BASE
+rm -rf $OUT_DIR
+mkdir -p $OUT_DIR
 . build/envsetup.sh
 breakfast $DEVICE
 check_result "lunch failed."
