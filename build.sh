@@ -202,8 +202,14 @@ echo "copying opengapps"
 mv /home/build/opengapps/vendor/opengapps $WORKSPACE/$JENKINS_BUILD_DIR/vendor/
 mv $WORKSPACE/$JENKINS_BUILD_DIR/vendor/opengapps/build/modules/Turbo/Android.mk $WORKSPACE/$JENKINS_BUILD_DIR/vendor/opengapps/build/modules/Turbo/Android.mok
 
-time $MAKE_BLOB $DEVICE
-check_result "Build failed."
+if [[ "$MAKE_BLOB" == "brunch" ]]
+then
+	time $MAKE_BLOB $DEVICE
+	check_result "Build failed."
+else
+	make -j$(nproc --all) $MAKE_BLOB
+	check_result "Build failed."
+fi
 
 echo "remove opengapps" 
 mv $WORKSPACE/$JENKINS_BUILD_DIR/vendor/opengapps/build/modules/Turbo/Android.mok $WORKSPACE/$JENKINS_BUILD_DIR/vendor/opengapps/build/modules/Turbo/Android.mk
