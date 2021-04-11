@@ -140,6 +140,9 @@ else
   echo Sync complete.
 fi
 
+# oh no a hackie
+export ALLOW_MISSING_DEPENDENCIES=true
+
 export OUT_DIR=/mnt/build/jenkins/lineless
 rm -rf $OUT_DIR
 mkdir -p $OUT_DIR
