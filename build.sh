@@ -102,7 +102,7 @@ fi
 rm -rf .repo/manifests*
 rm -f .repo/local_manifests/dyn-*.xml
 rm -f .repo/local_manifest.xml
-repo init -u https://github.com/linelessos/android.git -b $REPO_BRANCH
+repo init -u https://github.com/linelessos/platform_manifest_twrp_omni.git -b twrp-10.0
 check_result "repo init failed."
 
 if [ $USE_CCACHE -eq 1 ]
@@ -198,10 +198,6 @@ fi
 echo "Cleaning!"
 make clobber
 
-echo "copying opengapps" 
-mv /home/build/opengapps/vendor/opengapps $WORKSPACE/$JENKINS_BUILD_DIR/vendor/
-mv $WORKSPACE/$JENKINS_BUILD_DIR/vendor/opengapps/build/modules/Turbo/Android.mk $WORKSPACE/$JENKINS_BUILD_DIR/vendor/opengapps/build/modules/Turbo/Android.mok
-
 if [[ "$MAKE_BLOB" == "brunch" ]]
 then
 	time $MAKE_BLOB $DEVICE
@@ -210,10 +206,6 @@ else
 	make -j$(nproc --all) $MAKE_BLOB
 	check_result "Build failed."
 fi
-
-echo "remove opengapps" 
-mv $WORKSPACE/$JENKINS_BUILD_DIR/vendor/opengapps/build/modules/Turbo/Android.mok $WORKSPACE/$JENKINS_BUILD_DIR/vendor/opengapps/build/modules/Turbo/Android.mk
-mv $WORKSPACE/$JENKINS_BUILD_DIR/vendor/opengapps /home/build/opengapps/vendor/
 
 if [ $USE_CCACHE -eq 1 ]
 then
