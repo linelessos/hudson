@@ -102,7 +102,7 @@ fi
 rm -rf .repo/manifests*
 rm -f .repo/local_manifests/dyn-*.xml
 rm -f .repo/local_manifest.xml
-repo init -u https://github.com/linelessos/platform_manifest_twrp_omni.git -b twrp-10.0
+repo init -u https://github.com/linelessos/platform_manifest_twrp_omni.git -b twrp-9.0
 check_result "repo init failed."
 
 if [ $USE_CCACHE -eq 1 ]
